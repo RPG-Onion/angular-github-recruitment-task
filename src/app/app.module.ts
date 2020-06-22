@@ -9,7 +9,8 @@ import { StoreDevtoolsModule }      from '@ngrx/store-devtools';
 import { environment }              from '../environments/environment';
 import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule }            from '@ngrx/effects';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerModule }      from '@angular/service-worker';
+import { GithubModule }             from './GithubModue';
 
 export const metaReducers: MetaReducer<{}>[] = !environment.production ? [] : [];
 
@@ -34,6 +35,7 @@ export const metaReducers: MetaReducer<{}>[] = !environment.production ? [] : []
     AppRoutingModule,
     StoreRouterConnectingModule.forRoot(),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    GithubModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
