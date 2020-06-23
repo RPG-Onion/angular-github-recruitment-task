@@ -15,6 +15,7 @@ import { HeaderComponent }          from './Layout/header/header.component';
 import { LayoutComponent }          from './Layout/layout/layout.component';
 import { UserPageComponent } from './Pages/user-page/user-page.component';
 import { ReposListComponent } from './Pages/user-page/Components/repos-list/repos-list.component';
+import { RepoTileComponent } from './Pages/user-page/Components/repo-tile/repo-tile.component';
 
 export const metaReducers: MetaReducer<{}>[] = !environment.production ? [] : [];
 
@@ -24,7 +25,8 @@ export const metaReducers: MetaReducer<{}>[] = !environment.production ? [] : []
     HeaderComponent,
     LayoutComponent,
     UserPageComponent,
-    ReposListComponent
+    ReposListComponent,
+    RepoTileComponent
   ],
   imports: [
     BrowserModule,

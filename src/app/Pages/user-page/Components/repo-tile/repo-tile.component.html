@@ -1,0 +1,7 @@
+<h3>{{ repo.name }}</h3>
+<p>{{ repo.description }}</p>
+<div>Owner: {{ repo.owner.login }}</div>
+<div>Language: {{ repo.language }}</div>
+<div *ngIf="license">
+  License: {{ license }}
+</div>

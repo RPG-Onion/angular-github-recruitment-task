@@ -9,6 +9,10 @@ export const fetchUsersRepos = createAction('[Github] Get User`s repositories', 
 export const fetchUsersReposSuccess = createAction('[Github] Get User`s repositories Success', props<{repos: IGithubRepository[]}>());
 export const fetchUsersReposError = createAction('[Github] Get User`s repositories Error');
 
+export const fetchRepoBranches = createAction('[Github] Get Repo`s branches', props<{repo: IGithubRepository}>());
+export const fetchRepoBranchesSuccess = createAction('[Github] Get Repo`s branches Success', props<{branches: unknown[], repo: IGithubRepository}>());
+export const fetchRepoBranchesError = createAction('[Github] Get Repo`s branches Error');
+
 export const GithubActions = {
   User: {
     Load: {
@@ -20,6 +24,11 @@ export const GithubActions = {
       Success: fetchUsersReposSuccess,
       Error: fetchUsersReposError,
       Fetch: fetchUsersRepos,
+      Branches: {
+        Fetch: fetchRepoBranches,
+        Success: fetchRepoBranchesSuccess,
+        Error: fetchRepoBranchesError,
+      }
     }
   }
 };
