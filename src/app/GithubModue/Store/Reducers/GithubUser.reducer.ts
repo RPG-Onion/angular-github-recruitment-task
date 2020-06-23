@@ -1,5 +1,5 @@
 import { createReducer, on }                            from '@ngrx/store';
-import { onErrorState, onLoadingState, onSuccessState }                                         from '../../../../lib/Store/Common';
+import { onErrorState, onLoadingState, onSuccessState } from '../../../../lib/Store/Common';
 import {
   fetchUser,
   fetchUserError,
@@ -7,8 +7,8 @@ import {
   fetchUsersReposError,
   fetchUsersReposSuccess,
   fetchUserSuccess
-} from '../Actions/Github.actions';
-import { initialGithubState }                                                                   from './Github.store';
+}                                                from '../Actions/Github.actions';
+import { initialGithubState, repositoryAdapter } from './Github.store';
 
 export const GithubUserReducer = createReducer(initialGithubState,
   on(fetchUser, state => ({
@@ -42,7 +42,7 @@ export const GithubUserReducer = createReducer(initialGithubState,
     user: {
       ...state.user,
       repos: {
-        data: [],
+        data: repositoryAdapter.getInitialState(),
         status: {
           ...onLoadingState
         },
@@ -53,7 +53,10 @@ export const GithubUserReducer = createReducer(initialGithubState,
     user: {
       ...state.user,
       repos: {
-        data: action.repos,
+        data: repositoryAdapter.setAll(action.repos.map(repo => ({
+          data: repo,
+          branches: {},
+        })), state.user.repos.data),
         status: {
           ...onSuccessState
         },
@@ -64,7 +67,7 @@ export const GithubUserReducer = createReducer(initialGithubState,
     user: {
       ...state.user,
       repos: {
-        data: [],
+        data: repositoryAdapter.getInitialState(),
         status: {
           ...onErrorState
         },
