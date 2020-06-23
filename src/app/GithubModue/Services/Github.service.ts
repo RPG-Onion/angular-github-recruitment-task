@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable }              from '@angular/core';
+import { HttpClient, HttpHeaders }        from '@angular/common/http';
+import { Injectable }                     from '@angular/core';
 import { Observable, of }                 from 'rxjs';
 import { catchError }                     from 'rxjs/operators';
 import { IGithubRepository, IGithubUser } from '../Models';
+import { IGithubBranch }                  from '../Models/IGithubBranch';
 
 @Injectable()
 export class GithubService {
@@ -41,8 +42,8 @@ export class GithubService {
     );
   }
 
-  public getRepoBranches(repo: IGithubRepository): Observable<unknown[]> {
-    return this.http.get<IGithubRepository[]>(this.parseUrl(repo.branches_url), {
+  public getRepoBranches(repo: IGithubRepository): Observable<IGithubBranch[]> {
+    return this.http.get<IGithubBranch[]>(this.parseUrl(repo.branches_url), {
       headers: this.headers
     }).pipe(
       catchError(() => of([]))

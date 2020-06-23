@@ -1,8 +1,12 @@
-<p>repos-list works!</p>
+<h2>Repositories:</h2>
 
-<pre>{{ reposStatus$ | async | json }}</pre>
-<!--<pre>{{ repos$ | async | json }}</pre>-->
+<div *ngIf="reposStatus$ | async as status">
+  <span *ngIf="status.loading">Loading ...</span>
+  <span *ngIf="status.error">
+    {{status.errorMessage || "Error"}}
+  </span>
 
-<div *ngIf="repos.length > 0" class="repo-list">
-  <repo-tile *ngFor="let repo of repos" [repo]="repo"></repo-tile>
+  <div *ngIf="status.loaded && repos.length > 0" class="repo-list">
+    <repo-tile *ngFor="let repo of repos" [repo]="repo"></repo-tile>
+  </div>
 </div>

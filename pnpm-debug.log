@@ -1,0 +1,106 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 debug pnpm": {
+    "isCaseSensitive": false,
+    "store": "C:\\Users\\rpgon\\.pnpm-store\\2"
+  },
+  "2 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "zadanie",
+      "version": "0.0.0",
+      "scripts": {
+        "ng": "ng",
+        "start": "ng serve",
+        "build": "ng build",
+        "test": "jest",
+        "lint": "ng lint",
+        "e2e": "ng e2e",
+        "test:watch": "jest --watch"
+      },
+      "private": true,
+      "dependencies": {
+        "@angular/animations": "~9.1.11",
+        "@angular/common": "~9.1.11",
+        "@angular/compiler": "~9.1.11",
+        "@angular/core": "~9.1.11",
+        "@angular/forms": "~9.1.11",
+        "@angular/localize": "^9.1.11",
+        "@angular/platform-browser": "~9.1.11",
+        "@angular/platform-browser-dynamic": "~9.1.11",
+        "@angular/router": "~9.1.11",
+        "@angular/service-worker": "~9.1.11",
+        "@briebug/jest-schematic": "^2.1.1",
+        "@ngrx/effects": "^9.2.0",
+        "@ngrx/entity": "^9.2.0",
+        "@ngrx/router-store": "^9.2.0",
+        "@ngrx/schematics": "^9.2.0",
+        "@ngrx/store": "^9.2.0",
+        "rxjs": "~6.5.4",
+        "tslib": "^1.10.0",
+        "zone.js": "~0.10.2"
+      },
+      "devDependencies": {
+        "@angular-builders/jest": "^9.0.1",
+        "@angular-devkit/build-angular": "~0.901.9",
+        "@angular/cli": "~9.1.9",
+        "@angular/compiler-cli": "~9.1.11",
+        "@ngrx/store-devtools": "^9.2.0",
+        "@types/jasmine": "~3.5.0",
+        "@types/jasminewd2": "~2.0.3",
+        "@types/jest": "26.0.0",
+        "@types/node": "^12.11.1",
+        "codelyzer": "^5.1.2",
+        "jasmine-core": "~3.5.0",
+        "jasmine-spec-reporter": "~4.2.1",
+        "jest": "26.0.1",
+        "jest-preset-angular": "8.2.1",
+        "protractor": "~7.0.0",
+        "ts-node": "~8.3.0",
+        "tslint": "~6.1.0",
+        "typescript": "~3.8.3"
+      }
+    },
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2",
+    "stage": "resolution_started"
+  },
+  "4 warn pnpm": {
+    "message": "Moving @angular-builders/jest that was installed by a different package manager to \"node_modules/.ignored",
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2"
+  },
+  "5 warn pnpm": {
+    "message": "Moving @angular-devkit/build-angular that was installed by a different package manager to \"node_modules/.ignored",
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2"
+  },
+  "6 warn pnpm": {
+    "message": "Moving @angular/cli that was installed by a different package manager to \"node_modules/.ignored",
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2"
+  },
+  "7 warn pnpm": {
+    "message": "Moving @angular/compiler-cli that was installed by a different package manager to \"node_modules/.ignored",
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2"
+  },
+  "8 warn pnpm": {
+    "message": "Moving @ngrx/store-devtools that was installed by a different package manager to \"node_modules/.ignored",
+    "prefix": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2"
+  },
+  "9 error pnpm": {
+    "message": {
+      "errno": -4048,
+      "code": "EPERM",
+      "syscall": "rename",
+      "path": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2\\node_modules\\@ngrx\\store-devtools",
+      "dest": "C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2\\node_modules\\.ignored\\@ngrx\\store-devtools"
+    },
+    "err": {
+      "name": "Error",
+      "message": "EPERM: operation not permitted, rename 'C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2\\node_modules\\@ngrx\\store-devtools' -> 'C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2\\node_modules\\.ignored\\@ngrx\\store-devtools'",
+      "code": "EPERM",
+      "stack": "Error: EPERM: operation not permitted, rename 'C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2\\node_modules\\@ngrx\\store-devtools' -> 'C:\\Users\\rpgon\\Desktop\\Projects\\zadanie2\\node_modules\\.ignored\\@ngrx\\store-devtools'"
+    }
+  }
+}

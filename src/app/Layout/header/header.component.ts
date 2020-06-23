@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit }       from '@angular/core';
-import { Router }                             from '@angular/router';
-import { Store }                              from '@ngrx/store';
-import { Subject, Subscription }              from 'rxjs';
+import { Router }                from '@angular/router';
+import { select, Store }         from '@ngrx/store';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { GithubState }                        from '../../GithubModue/Store/Reducers/Github.store';
 

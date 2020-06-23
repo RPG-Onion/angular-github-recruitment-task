@@ -27,7 +27,6 @@ export class ReposListComponent implements OnInit, OnDestroy {
         this.repos = Object.values(res)
           .map(reso => reso.data)
           .filter(reso => reso.fork !== true);
-        console.log(this.repos);
       });
 
     this.store.pipe(select(GithubSelectos.getUser)).subscribe(user => {

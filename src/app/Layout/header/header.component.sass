@@ -1,5 +1,9 @@
 @import "src/sass/index"
 
+\:host
+  position: sticky
+  top: 0
+
 %inputStyle
   height: 32px
   border-radius: 16px
@@ -17,12 +21,15 @@
     border-color: $orange-web
 
 .header
-  background: $black
+  background: $oxford-blue
   color: $platinum
   padding: 16px 0
+  border-bottom: 1px solid $platinum
+  box-shadow: 0 0 3px 2px rgba($black, .4)
 
   &-content
     display: flex
+    align-items: center
 
 .brand
   font-size: bold 24px/30px

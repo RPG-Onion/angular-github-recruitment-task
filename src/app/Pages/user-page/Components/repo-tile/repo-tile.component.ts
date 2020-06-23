@@ -1,7 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Store }                    from '@ngrx/store';
+import { select, Store }            from '@ngrx/store';
+import { Observable }               from 'rxjs';
+import { map }                      from 'rxjs/operators';
 import { IGithubRepository }        from '../../../../GithubModue/Models';
+import { IGithubBranch }            from '../../../../GithubModue/Models/IGithubBranch';
 import { GithubActions }            from '../../../../GithubModue/Store/Actions/Github.actions';
+import { GithubSelectos }           from '../../../../GithubModue/Store/Selectors/github.selectors';
 
 @Component({
   selector: 'repo-tile',
@@ -12,24 +16,22 @@ import { GithubActions }            from '../../../../GithubModue/Store/Actions/
 export class RepoTileComponent implements OnInit {
 
   @Input() public repo: IGithubRepository;
+  public branches$: Observable<IGithubBranch[]>;
 
   constructor(private store: Store) {
   }
 
-  public get license(): string {
-    if (typeof this.repo.license === 'string') {
-      return this.repo.license;
-    }
-
-    return this.repo.license?.name ?? null;
-  }
-
   ngOnInit() {
+
     if (this.repo) {
-      console.log(this.repo);
-      console.log(this.repo.branches_url);
       this.store.dispatch(GithubActions.User.Repos.Branches.Fetch({ repo: this.repo }));
     }
+
+    this.branches$ = this.store
+      .pipe(
+        select(GithubSelectos.getReposBranches, {repoId: this.repo.node_id}),
+        map(res => Object.values(res))
+      );
   }
 
 }

@@ -1,15 +1,16 @@
-import { EntityState, EntityMap, createEntityAdapter } from '@ngrx/entity';
-import { EntityAdapter }                               from '@ngrx/entity/src/models';
+import { EntityState, EntityMap, createEntityAdapter }                                            from '@ngrx/entity';
+import { EntityAdapter }                                                                          from '@ngrx/entity/src/models';
 import { CommonStoreStatus, CommonStoreStatusInit, onErrorState, onLoadingState, onSuccessState } from '../../../../lib/Store/Common';
 import { IGithubRepository, IGithubUser }                                                         from '../../Models';
+import { IGithubBranch }                                                                          from '../../Models/IGithubBranch';
 
 export const githubFeatureKey = 'github';
 
 interface IRepositoryData {
   data: IGithubRepository;
   branches: {
-    // data: EntityState<IBranchData>,
-    // status: CommonStoreStatus,
+    data: EntityState<IGithubBranch>,
+    status: CommonStoreStatus,
   };
 }
 
@@ -17,13 +18,9 @@ export const repositoryAdapter = createEntityAdapter<IRepositoryData>({
   selectId: model => model.data.node_id,
 });
 
-interface IBranchData {
-  data: IGithubRepository;
-  commits: {
-    data: EntityState<any>,
-    status: CommonStoreStatus,
-  };
-}
+export const branchAdapter = createEntityAdapter<IGithubBranch>({
+  selectId: model => model.name,
+});
 
 export interface GithubState {
   user: {

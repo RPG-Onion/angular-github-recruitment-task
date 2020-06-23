@@ -1,7 +1,11 @@
-<h3>{{ repo.name }}</h3>
-<p>{{ repo.description }}</p>
-<div>Owner: {{ repo.owner.login }}</div>
-<div>Language: {{ repo.language }}</div>
-<div *ngIf="license">
-  License: {{ license }}
+<h3 class="repo-name">{{ repo.name }}</h3>
+<p>{{ repo.description || "No description" }}</p>
+<div><b>Owner:</b> {{ repo.owner.login }}</div>
+<div *ngIf="branches$ | async as branches">
+  <hr>
+  <h3>Branches: </h3>
+  <div *ngFor="let branch of branches">
+    <b>{{ branch.name }}</b>
+    <div *ngIf="branch.commit">&nbsp;{{ branch.commit.sha }}</div>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 import { createReducer, on }                            from '@ngrx/store';
-import { onErrorState, onLoadingState, onSuccessState } from '../../../../lib/Store/Common';
+import { onErrorState, onLoadingState, onSuccessState, CommonStoreStatusInit } from '../../../../lib/Store/Common';
 import {
   fetchRepoBranchesSuccess,
   fetchUser,
@@ -8,8 +8,8 @@ import {
   fetchUsersReposError,
   fetchUsersReposSuccess,
   fetchUserSuccess
-} from '../Actions/Github.actions';
-import { initialGithubState, repositoryAdapter } from './Github.store';
+}                                                               from '../Actions/Github.actions';
+import { branchAdapter, initialGithubState, repositoryAdapter } from './Github.store';
 
 export const GithubUserReducer = createReducer(initialGithubState,
   on(fetchUser, state => ({
@@ -56,7 +56,10 @@ export const GithubUserReducer = createReducer(initialGithubState,
       repos: {
         data: repositoryAdapter.setAll(action.repos.map(repo => ({
           data: repo,
-          branches: {},
+          branches: {
+            data: branchAdapter.getInitialState(),
+            status: {...CommonStoreStatusInit}
+          },
         })), state.user.repos.data),
         status: {
           ...onSuccessState
@@ -79,10 +82,16 @@ export const GithubUserReducer = createReducer(initialGithubState,
     user: {
       ...state.user,
       repos: {
+        ...state.user.repos,
         data: repositoryAdapter.updateOne({
           id: action.repo.node_id,
           changes: {
-            branches: action.branches
+            branches: {
+              data: branchAdapter.setAll(action.branches, state.user.repos.data.entities[action.repo.node_id].branches.data),
+              status: {
+                ...onSuccessState
+              },
+            }
           }
         }, state.user.repos.data)
       }
