@@ -1,0 +1,38 @@
+@import "src/sass/index"
+
+%inputStyle
+  height: 32px
+  border-radius: 16px
+  border: 2px solid dimgray
+  outline: none
+  background: $platinum
+  transition: all .1s ease-in
+  transition-property: border-color, background, box-shadow
+  padding: 0 16px
+  font-size: 18px
+  text-align: center
+  &:focus
+    box-shadow: 0 0 2px 1px rgba($platinum, .2)
+    background: $white
+    border-color: $orange-web
+
+.header
+  background: $black
+  color: $platinum
+  padding: 16px 0
+
+  &-content
+    display: flex
+
+.brand
+  font-size: bold 24px/30px
+.search
+  flex: 1
+  padding: 0 32px
+
+  &-input
+    width: 100%
+    @extend %inputStyle
+
+.lang-switch
+  @extend %inputStyle

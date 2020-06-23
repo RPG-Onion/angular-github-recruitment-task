@@ -1,0 +1,21 @@
+@import "../../Variables/index"
+
+// Small devices (landscape phones, 576px and up)
+=mediaFromSmall
+  @media (min-width: $bp-small)
+    @content
+
+// Medium devices (tablets, 768px and up)
+=mediaFromMedium
+  @media (min-width: $bp-medium)
+    @content
+
+// Large devices (desktops, 992px and up)
+=mediaFromLarge
+  @media (min-width: $bp-large)
+    @content
+
+// Extra large devices (large desktops, 1200px and up)
+=mediaFromXlarge
+  @media (min-width: $bp-xlarge)
+    @content

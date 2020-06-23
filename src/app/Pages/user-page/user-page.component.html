@@ -1,0 +1,22 @@
+<pre>{{ userStatus$ | async | json }}</pre>
+
+<div *ngIf="(userStatus$ | async).loaded; else loading">
+  <div *ngIf="user$ | async as user; else userNotFound">
+    <img [src]="user.avatar_url" [alt]="user.login" class="avatar">
+    <h3>{{ user.name }}</h3>
+    <h2>{{ user.login }}</h2>
+    <div>
+      <div>{{ user.location }}</div>
+      <div>{{ user.company }}</div>
+      <div>{{ user.blog }}</div>
+      <div>{{ user.url }}</div>
+    </div>
+
+    <app-repos-list></app-repos-list>
+  </div>
+
+  <ng-template #userNotFound>
+    User not found
+  </ng-template>
+</div>
+<ng-template #loading>Loading ...</ng-template>

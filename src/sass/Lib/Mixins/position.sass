@@ -1,0 +1,29 @@
+=pos($position,$top: null, $right: null, $bottom: null, $left: null, $zIndex: null)
+  position: $position
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+  z-index: $zIndex
+
+=posa($top: null, $right: null, $bottom: null, $left: null, $zIndex: null)
+  +pos(absolute, $top, $right, $bottom, $left, $zIndex)
+=posatl($top, $left, $zIndex: null)
+  +posa($top, null, null, $left, $zIndex)
+=posatr($top, $right, $zIndex: null)
+  +posa($top, $right, null, null, $zIndex)
+=posabl($bottom, $left, $zIndex: null)
+  +posa(null, null, $bottom, $left, $zIndex)
+=posabr($bottom, $right, $zIndex: null)
+  +posa(null, $right, $bottom, null, $zIndex)
+
+=posf($top: null, $right: null, $bottom: null, $left: null, $zIndex: null)
+  +pos(fixed, $top, $right, $bottom, $left, $zIndex)
+=posftl($top, $left, $zIndex: null)
+  +posf($top, null, null, $left, $zIndex)
+=posftr($top, $right, $zIndex: null)
+  +posf($top, $right, null, null, $zIndex)
+=posfbl($bottom, $left, $zIndex: null)
+  +posf(null, null, $bottom, $left, $zIndex)
+=posfbr($bottom, $right, $zIndex: null)
+  +posf(null, $right, $bottom, null, $zIndex)

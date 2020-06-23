@@ -1,0 +1,18 @@
+<p>repos-list works!</p>
+
+<pre>{{ reposStatus$ | async | json }}</pre>
+<!--<pre>{{ repos$ | async | json }}</pre>-->
+
+<div *ngIf="repos.length > 0">
+  <div *ngFor="let repo of repos">
+    <div>
+      {{ repo.name }}
+      {{ repo.description }}
+      Owner: {{ repo.owner.login }}
+      Language: {{ repo.language }}
+      <div *ngIf="repo.license !== null">
+        License: {{ repo.license.name }}
+      </div>
+    </div>
+  </div>
+</div>

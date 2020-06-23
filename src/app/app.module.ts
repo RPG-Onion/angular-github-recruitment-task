@@ -11,12 +11,20 @@ import { MetaReducer, StoreModule } from '@ngrx/store';
 import { EffectsModule }            from '@ngrx/effects';
 import { ServiceWorkerModule }      from '@angular/service-worker';
 import { GithubModule }             from './GithubModue';
+import { HeaderComponent }          from './Layout/header/header.component';
+import { LayoutComponent }          from './Layout/layout/layout.component';
+import { UserPageComponent } from './Pages/user-page/user-page.component';
+import { ReposListComponent } from './Pages/user-page/Components/repos-list/repos-list.component';
 
 export const metaReducers: MetaReducer<{}>[] = !environment.production ? [] : [];
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    LayoutComponent,
+    UserPageComponent,
+    ReposListComponent
   ],
   imports: [
     BrowserModule,
