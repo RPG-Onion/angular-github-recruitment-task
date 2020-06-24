@@ -1,1 +1,0 @@
-# angular-github-recruitment-task

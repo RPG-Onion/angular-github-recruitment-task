@@ -343,7 +343,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     var fetchUser = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
     var fetchUserSuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User Success', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
-    var fetchUserError = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User Error');
+    var fetchUserError = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User Error', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
     var fetchUsersRepos = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User`s repositories', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
     var fetchUsersReposSuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User`s repositories Success', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
     var fetchUsersReposError = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User`s repositories Error');
@@ -445,10 +445,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       this.fetchGithubUser = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["createEffect"])(function () {
         return _this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUser"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])(function (action) {
           return _this.githubService.getUser(action.username).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (user) {
-            return Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserSuccess"])({
-              user: user
-            });
-          }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function () {
+            if (user !== null) {
+              return Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserSuccess"])({
+                user: user
+              });
+            } else {
+              return Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserError"])({
+                msg: 'User not found'
+              });
+            }
+          }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserError"]);
           }));
         }));
@@ -637,11 +643,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           status: Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onSuccessState"])
         })
       };
-    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUserError"], function (state) {
+    }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUserError"], function (state, action) {
       return {
         user: Object.assign(Object.assign({}, state.user), {
           data: null,
-          status: Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onErrorState"])
+          status: Object.assign(Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onErrorState"]), {
+            errorMessage: action.msg
+          })
         })
       };
     }), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersRepos"], function (state) {

@@ -159,7 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const fetchUser = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const fetchUserSuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User Success', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
-const fetchUserError = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User Error');
+const fetchUserError = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User Error', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const fetchUsersRepos = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User`s repositories', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const fetchUsersReposSuccess = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User`s repositories Success', Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["props"])());
 const fetchUsersReposError = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["createAction"])('[Github] Get User`s repositories Error');
@@ -221,7 +221,14 @@ class GithubEffects {
         this.githubService = githubService;
         this.store = store;
         this.fetchGithubUser = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["createEffect"])(() => this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUser"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])((action) => this.githubService.getUser(action.username)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(user => Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserSuccess"])({ user })), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserError"]))))));
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(user => {
+            if (user !== null) {
+                return Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserSuccess"])({ user });
+            }
+            else {
+                return Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserError"])({ msg: 'User not found' });
+            }
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])((error) => Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUserError"]))))));
         this.fetchGithubUsersRepos = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["createEffect"])(() => this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUsersRepos"]), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["mergeMap"])((action) => this.githubService.getUsersRepositories(action.user)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(repos => Object(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUsersReposSuccess"])({ repos })), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUsersReposError"]))))));
         this.fetchGithubUsersReposBranches = Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["createEffect"])(() => this.actions$.pipe(Object(_ngrx_effects__WEBPACK_IMPORTED_MODULE_1__["ofType"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_4__["GithubActions"].User.Repos.Branches.Fetch), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["concatMap"])((action) => this.githubService.getRepoBranches(action.repo)
@@ -297,8 +304,8 @@ const GithubUserReducer = Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["creat
     user: Object.assign(Object.assign({}, state.user), { data: null, status: Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onLoadingState"]) })
 })), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUserSuccess"], (state, action) => ({
     user: Object.assign(Object.assign({}, state.user), { data: action.user, status: Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onSuccessState"]) })
-})), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUserError"], state => ({
-    user: Object.assign(Object.assign({}, state.user), { data: null, status: Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onErrorState"]) })
+})), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUserError"], (state, action) => ({
+    user: Object.assign(Object.assign({}, state.user), { data: null, status: Object.assign(Object.assign({}, _lib_Store_Common__WEBPACK_IMPORTED_MODULE_1__["onErrorState"]), { errorMessage: action.msg }) })
 })), Object(_ngrx_store__WEBPACK_IMPORTED_MODULE_0__["on"])(_Actions_Github_actions__WEBPACK_IMPORTED_MODULE_2__["fetchUsersRepos"], state => ({
     user: Object.assign(Object.assign({}, state.user), { repos: {
             data: _Github_store__WEBPACK_IMPORTED_MODULE_3__["repositoryAdapter"].getInitialState(),
