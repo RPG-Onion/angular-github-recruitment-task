@@ -1,10 +1,10 @@
-import { Injectable }                                from '@angular/core';
-import { Actions, createEffect, ofType }             from '@ngrx/effects';
-import { Store }                                     from '@ngrx/store';
+import { Injectable }                                           from '@angular/core';
+import { Actions, createEffect, ofType }                        from '@ngrx/effects';
+import { Store }                                                from '@ngrx/store';
 import { of, throwError }                                       from 'rxjs';
 import { map, mergeMap, catchError, withLatestFrom, concatMap } from 'rxjs/operators';
 import { IGithubUser }                                          from '../../Models';
-import { GithubService }                             from '../../Services/Github.service';
+import { GithubService }                                        from '../../Services/Github.service';
 import {
   fetchUser,
   fetchUserError,
@@ -12,8 +12,8 @@ import {
   fetchUsersReposError,
   fetchUsersReposSuccess,
   fetchUserSuccess, GithubActions
-} from '../Actions/Github.actions';
-import { GithubState } from '../Reducers/Github.store';
+}                                                               from '../Actions/Github.actions';
+import { GithubState }                                          from '../Reducers/Github.store';
 
 @Injectable()
 export class GithubEffects {
@@ -23,8 +23,14 @@ export class GithubEffects {
       ofType(fetchUser),
       mergeMap((action) => this.githubService.getUser(action.username)
         .pipe(
-          map(user => fetchUserSuccess({user})),
-          catchError(() => of(fetchUserError))
+          map(user => {
+            if (user !== null) {
+              return fetchUserSuccess({ user });
+            } else {
+              return fetchUserError({ msg: 'User not found' });
+            }
+          }),
+          catchError((error) => of(fetchUserError))
         )
       )
     )
@@ -35,7 +41,7 @@ export class GithubEffects {
       ofType(fetchUsersRepos),
       mergeMap((action) => this.githubService.getUsersRepositories(action.user)
         .pipe(
-          map(repos => fetchUsersReposSuccess({repos})),
+          map(repos => fetchUsersReposSuccess({ repos })),
           catchError(() => of(fetchUsersReposError))
         )
       )
@@ -47,7 +53,7 @@ export class GithubEffects {
       ofType(GithubActions.User.Repos.Branches.Fetch),
       concatMap((action) => this.githubService.getRepoBranches(action.repo)
         .pipe(
-          map((branches) => GithubActions.User.Repos.Branches.Success({branches, repo: action.repo})),
+          map((branches) => GithubActions.User.Repos.Branches.Success({ branches, repo: action.repo })),
           catchError(() => of(GithubActions.User.Repos.Branches.Error))
         )
       )
@@ -58,5 +64,6 @@ export class GithubEffects {
     private actions$: Actions,
     private githubService: GithubService,
     private store: Store<GithubState>
-  ) {}
+  ) {
+  }
 }

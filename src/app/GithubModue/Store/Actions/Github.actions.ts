@@ -4,7 +4,7 @@ import { IGithubBranch }                  from '../../Models/IGithubBranch';
 
 export const fetchUser = createAction('[Github] Get User', props<{ username: string }>());
 export const fetchUserSuccess = createAction('[Github] Get User Success', props<{ user: IGithubUser }>());
-export const fetchUserError = createAction('[Github] Get User Error');
+export const fetchUserError = createAction('[Github] Get User Error', props<{msg: string}>());
 
 export const fetchUsersRepos = createAction('[Github] Get User`s repositories', props<{ user: IGithubUser }>());
 export const fetchUsersReposSuccess = createAction('[Github] Get User`s repositories Success', props<{ repos: IGithubRepository[] }>());

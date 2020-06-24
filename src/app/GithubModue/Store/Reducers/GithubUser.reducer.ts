@@ -30,12 +30,13 @@ export const GithubUserReducer = createReducer(initialGithubState,
       },
     }
   })),
-  on(fetchUserError, state => ({
+  on(fetchUserError, (state, action) => ({
     user: {
       ...state.user,
       data: null,
       status: {
-        ...onErrorState
+        ...onErrorState,
+        errorMessage: action.msg
       },
     }
   })),
